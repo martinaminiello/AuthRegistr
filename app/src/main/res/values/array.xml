@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <array name="opzione_lingua">
+        <item>Scegli lingua</item>
+        <item>ITA</item>
+        <item>ENG</item>
+    </array>
+
+    <array name="vista_utente">
+        <item>Scegli utente</item>
+        <item>Richiedente Asilo</item>
+        <item>Staff</item>
+    </array>
+
+    <array name="gender_options">
+        <item>Genere</item>
+        <item>M</item>
+        <item>F</item>
+        <item>Altro</item>
+    </array>
+
+
+</resources>

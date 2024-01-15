@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity"
+    android:orientation="vertical"
+    android:padding="45dp"
+    android:background="@drawable/gradient">
+
+
+    <ImageView
+        android:id="@+id/icona"
+        android:layout_width="250dp"
+        android:layout_height="250dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="95dp"
+        app:srcCompat="@drawable/proposta_1_scritta_barca_removebg_preview__6_">
+
+    </ImageView>
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="66dp"
+        app:cardCornerRadius="10dp"
+        android:layout_gravity="center"
+      >
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+           >
+
+            <!-- Other views inside the CardView -->
+
+            <Spinner
+                android:id="@+id/spinner_vista_Utente"
+                style="@android:style/Widget.DeviceDefault.DropDownItem.Spinner"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:background="#076AEC"
+                android:entries="@array/vista_utente"
+                android:spinnerMode="dropdown"
+                android:padding="6dp"
+                android:popupBackground="#076AEB"
+                android:dropDownSelector="@color/black"
+               />
+
+
+
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
+
+
+
+
+</LinearLayout>
+
