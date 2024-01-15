@@ -13,6 +13,12 @@
         android:theme="@style/Theme.AuthRegistr"
         tools:targetApi="31">
         <activity
+            android:name=".HomeR"
+            android:exported="false" />
+        <activity
+            android:name=".RegistrazioneRichiedenteAsilo"
+            android:exported="false" />
+        <activity
             android:name=".AccessoRichiedenteAsilo"
             android:exported="false" />
         <activity

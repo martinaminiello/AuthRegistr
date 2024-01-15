@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    tools:context=".MainActivity">
+
+
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#fe9e50"
+        app:title="AsilApp"
+        app:titleTextColor="#FFFFFF" />
+
+    <TextView
+        android:id="@+id/signupText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Sign-up"
+        android:layout_marginTop="90dp"
+        android:textAlignment="center"
+        android:textColor="#373636"
+        android:textSize="25sp"
+        android:textStyle="normal" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="670dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="-9dp"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:padding="24dp">
+
+
+        <EditText
+            android:id="@+id/nome"
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:layout_marginTop="35dp"
+
+            android:drawablePadding="10dp"
+            android:hint="Nome "
+            android:inputType="textPersonName"
+            android:padding="10dp"
+            android:textColor="@color/black" />
+
+
+        <EditText
+            android:id="@+id/cognome"
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+
+            android:drawablePadding="10dp"
+            android:hint="Cognome "
+            android:inputType="textPersonName"
+            android:padding="10dp"
+            android:textColor="@color/black" />
+
+
+        <Spinner
+            android:id="@+id/spinner_genere"
+            style="@style/Widget.Material3.TextInputLayout.FilledBox.Dense"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:layout_gravity="start|left"
+            android:layout_marginLeft="20sp"
+            android:layout_marginEnd="20sp"
+            android:layout_marginRight="20sp"
+            android:layout_marginBottom="20sp"
+            android:entries="@array/gender_options"
+            android:outlineAmbientShadowColor="#076AEC"
+            android:prompt="@string/genere_prompt"
+            app:boxStrokeColor="#076AEC" />
+
+        <EditText
+            android:id="@+id/email"
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:layout_marginTop="-20dp"
+            android:drawablePadding="8dp"
+            android:hint="Email"
+            android:inputType="textEmailAddress"
+            android:padding="8dp"
+            android:textColor="@color/black" />
+
+        <EditText
+            android:id="@+id/password"
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+
+            android:drawablePadding="10dp"
+            android:hint="Password"
+            android:inputType="textPassword"
+            android:padding="10dp"
+            android:textColor="@color/black" />
+
+        <EditText
+            android:id="@+id/cell"
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+
+            android:drawablePadding="10dp"
+            android:hint="Cellulare"
+            android:inputType="phone|text"
+            android:padding="10dp"
+            android:textColor="@color/black" />
+
+
+        <EditText
+            android:id="@+id/dataNascita"
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+
+            android:drawablePadding="10dp"
+            android:hint="Data di nascita"
+            android:inputType="datetime"
+            android:padding="10dp"
+            android:textColor="@color/black" />
+
+        <EditText
+            android:id="@+id/luogoNascita"
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+
+            android:drawablePadding="10dp"
+            android:hint="Luogo di nascita"
+            android:inputType="text"
+            android:padding="10dp"
+            android:textColor="@color/black" />
+
+
+        <Button
+            android:id="@+id/confirm_registration"
+            android:layout_width="160dp"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="20dp"
+            android:backgroundTint="#076AEC"
+            android:text="Registrati"
+            android:textSize="18sp"
+            app:cornerRadius="20dp" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/alreadyRegistered"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/password_persa"
+                android:layout_marginBottom="30dp"
+                android:onClick="Recupero_password"
+                android:padding="8dp"
+                android:text="Sei già registrato? Login"
+                android:textAlignment="textStart"
+                android:textColor="#076AEB"
+                android:textSize="18sp"
+                android:textStyle="normal" />
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+
+</RelativeLayout>
