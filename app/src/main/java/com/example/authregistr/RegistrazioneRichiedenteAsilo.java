@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -55,6 +56,8 @@ public class RegistrazioneRichiedenteAsilo extends AppCompatActivity {
                             if(task.isSuccessful()){
                                 Toast.makeText(RegistrazioneRichiedenteAsilo.this,"Registrazione avvenuta con successo",Toast.LENGTH_SHORT).show();
                                 startActivity(new Intent(RegistrazioneRichiedenteAsilo.this,AccessoRichiedenteAsilo.class));
+
+                                Log.d(TAG, "FINISH successful");
                             }else {
                                 Toast.makeText(RegistrazioneRichiedenteAsilo.this,"Registrazione fallita"+ task.getException().getMessage(),Toast.LENGTH_SHORT).show();
                             }
@@ -69,6 +72,7 @@ public class RegistrazioneRichiedenteAsilo extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(RegistrazioneRichiedenteAsilo.this,AccessoRichiedenteAsilo.class));
+
             }
         });
     }

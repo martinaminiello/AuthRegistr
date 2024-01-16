@@ -24,7 +24,7 @@
         android:text="Sign-up"
         android:layout_marginTop="90dp"
         android:textAlignment="center"
-        android:textColor="#373636"
+        android:textColor="#504F4F"
         android:textSize="25sp"
         android:textStyle="normal" />
 
@@ -44,7 +44,7 @@
             android:layout_width="match_parent"
             android:layout_height="55dp"
             android:layout_marginTop="35dp"
-
+            android:textSize="16sp"
             android:drawablePadding="10dp"
             android:hint="Nome "
             android:inputType="textPersonName"
@@ -56,7 +56,7 @@
             android:id="@+id/cognome"
             android:layout_width="match_parent"
             android:layout_height="55dp"
-
+            android:textSize="16sp"
             android:drawablePadding="10dp"
             android:hint="Cognome "
             android:inputType="textPersonName"
@@ -72,6 +72,7 @@
             android:layout_gravity="start|left"
             android:layout_marginLeft="20sp"
             android:layout_marginEnd="20sp"
+            android:textSize="16sp"
             android:layout_marginRight="20sp"
             android:layout_marginBottom="20sp"
             android:entries="@array/gender_options"
@@ -86,6 +87,7 @@
             android:layout_marginTop="-20dp"
             android:drawablePadding="8dp"
             android:hint="Email"
+            android:textSize="16sp"
             android:inputType="textEmailAddress"
             android:padding="8dp"
             android:textColor="@color/black" />
@@ -94,7 +96,7 @@
             android:id="@+id/password"
             android:layout_width="match_parent"
             android:layout_height="55dp"
-
+            android:textSize="16sp"
             android:drawablePadding="10dp"
             android:hint="Password"
             android:inputType="textPassword"
@@ -105,7 +107,7 @@
             android:id="@+id/cell"
             android:layout_width="match_parent"
             android:layout_height="55dp"
-
+            android:textSize="16sp"
             android:drawablePadding="10dp"
             android:hint="Cellulare"
             android:inputType="phone|text"
@@ -117,7 +119,7 @@
             android:id="@+id/dataNascita"
             android:layout_width="match_parent"
             android:layout_height="55dp"
-
+            android:textSize="16sp"
             android:drawablePadding="10dp"
             android:hint="Data di nascita"
             android:inputType="datetime"
@@ -128,7 +130,7 @@
             android:id="@+id/luogoNascita"
             android:layout_width="match_parent"
             android:layout_height="55dp"
-
+            android:textSize="16sp"
             android:drawablePadding="10dp"
             android:hint="Luogo di nascita"
             android:inputType="text"
@@ -138,13 +140,13 @@
 
         <Button
             android:id="@+id/confirm_registration"
-            android:layout_width="160dp"
+            android:layout_width="130dp"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="20dp"
             android:backgroundTint="#076AEC"
             android:text="Registrati"
-            android:textSize="18sp"
+            android:textSize="15sp"
             app:cornerRadius="20dp" />
 
         <LinearLayout
@@ -161,10 +163,11 @@
                 android:layout_marginBottom="30dp"
                 android:onClick="Recupero_password"
                 android:padding="8dp"
+                android:textSize="15sp"
                 android:text="Sei già registrato? Login"
                 android:textAlignment="textStart"
                 android:textColor="#076AEB"
-                android:textSize="18sp"
+
                 android:textStyle="normal" />
 
         </LinearLayout>

@@ -55,7 +55,7 @@ public class AccessoRichiedenteAsilo extends AppCompatActivity {
                             public void onSuccess(AuthResult authResult) {
                                 Toast.makeText(AccessoRichiedenteAsilo.this, "Accesso avvenuto con successo", Toast.LENGTH_SHORT).show();
                                 startActivity(new Intent(AccessoRichiedenteAsilo.this, HomeR.class));
-                                finish();
+                                  finish();
                             }
                         }).addOnFailureListener(new OnFailureListener() {
                             @Override
@@ -81,6 +81,7 @@ public class AccessoRichiedenteAsilo extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(AccessoRichiedenteAsilo.this,RegistrazioneRichiedenteAsilo.class));
+
             }
         });
                 }

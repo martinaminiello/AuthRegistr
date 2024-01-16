@@ -11,6 +11,9 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -18,6 +21,7 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity {
 
     Spinner choice;
+    private FirebaseAuth mAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,8 +42,13 @@ public class MainActivity extends AppCompatActivity {
         views_user.add("Richiedente Asilo");
         views_user.add("Staff");
 
-
-
+        mAuth = FirebaseAuth.getInstance();
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+        if (currentUser != null) {
+            // User is already logged in, go to HomeR
+            startActivity(new Intent(MainActivity.this, HomeR.class));
+            finish();
+        }
 
 
         UserSpinnerAdapter adapterChoice = new UserSpinnerAdapter(this, android.R.layout.simple_spinner_item, views_user.toArray(new String[0]));
@@ -57,13 +66,13 @@ public class MainActivity extends AppCompatActivity {
                     if (parent.getItemAtPosition(position).equals("Richiedente Asilo")) {
                         Intent intent = new Intent(MainActivity.this, AccessoRichiedenteAsilo.class);
                         startActivity(intent);
-                        Toast.makeText(parent.getContext(), "Accedi come " + item, Toast.LENGTH_SHORT).show();
+
                     }
 
                     if (parent.getItemAtPosition(position).equals("Staff")) {
                         Intent intent = new Intent(MainActivity.this, AccessoStaff.class);
                         startActivity(intent);
-                        Toast.makeText(parent.getContext(), "Accedi come " + item, Toast.LENGTH_SHORT).show();
+
                     }
                 }
             }
