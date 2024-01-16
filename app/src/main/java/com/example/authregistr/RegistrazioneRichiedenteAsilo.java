@@ -12,6 +12,7 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -23,6 +24,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.UserProfileChangeRequest;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
@@ -48,6 +50,8 @@ public class RegistrazioneRichiedenteAsilo extends AppCompatActivity {
     private Button register;
     private TextView loginRedirect;
 
+    private ProgressBar progressBar;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -62,6 +66,7 @@ public class RegistrazioneRichiedenteAsilo extends AppCompatActivity {
         genderSpinner = findViewById(R.id.spinner_genere);
         cellulare = findViewById(R.id.cell);
         luogonascita = findViewById(R.id.luogoNascita);
+        progressBar=findViewById(R.id.progressBar);
 
 
 
@@ -108,7 +113,8 @@ public class RegistrazioneRichiedenteAsilo extends AppCompatActivity {
                 if (!isValidPhoneNumber(cellulareValue)) {
                     Toast.makeText(RegistrazioneRichiedenteAsilo.this, "Cellulare non valido!", Toast.LENGTH_SHORT).show();
                     return; // Stop registration if phone number is not valid
-                }else {
+                } else {
+                    progressBar.setVisibility(View.VISIBLE);
                     mAuth.createUserWithEmailAndPassword(useremail, userpass).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
@@ -117,26 +123,42 @@ public class RegistrazioneRichiedenteAsilo extends AppCompatActivity {
                                 String uid = currentUser.getUid();
                                 DocumentReference documentRichiedenteAsilo = db.collection("RichiedenteAsilo").document(uid);
 
-
                                 Map<String, Object> RichiedenteAsilo = new HashMap<>();
                                 RichiedenteAsilo.put("ID_RichiedenteAsilo", uid);
                                 RichiedenteAsilo.put("Nome", nomeValue);
                                 RichiedenteAsilo.put("Cognome", cognomeValue);
-                                RichiedenteAsilo.put("Cellulare", cellulareValue);
                                 RichiedenteAsilo.put("LuogoNascita", luogonascitaValue);
                                 RichiedenteAsilo.put("DataNascita", nascitaValue);
                                 RichiedenteAsilo.put("Genere", genereValue);
                                 RichiedenteAsilo.put("Password", useremail);
                                 RichiedenteAsilo.put("Email", useremail);
 
+
+
                                 documentRichiedenteAsilo
                                         .set(RichiedenteAsilo)
                                         .addOnSuccessListener(new OnSuccessListener<Void>() {
                                             @Override
                                             public void onSuccess(Void aVoid) {
-                                                Toast.makeText(RegistrazioneRichiedenteAsilo.this, "Registrazione avvenuta con successo", Toast.LENGTH_SHORT).show();
-                                                startActivity(new Intent(RegistrazioneRichiedenteAsilo.this, AccessoRichiedenteAsilo.class));
-                                                Log.d(TAG, "FINISH successful");
+
+                                                FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                                                UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
+                                                        .setDisplayName(cellulareValue)
+                                                        .build();
+
+                                                user.updateProfile(profileUpdates).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                    @Override
+                                                    public void onComplete(@NonNull Task<Void> task) {
+                                                        if (task.isSuccessful()) {
+                                                            progressBar.setVisibility(View.GONE);
+                                                            Toast.makeText(RegistrazioneRichiedenteAsilo.this, "Registrazione avvenuta con successo", Toast.LENGTH_SHORT).show();
+                                                            startActivity(new Intent(RegistrazioneRichiedenteAsilo.this, AccessoRichiedenteAsilo.class));
+                                                            Log.d(TAG, "FINISH successful");
+                                                        } else {
+                                                            Toast.makeText(RegistrazioneRichiedenteAsilo.this, "Registrazione fallita" + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                                                        }
+                                                    }
+                                                });
                                             }
                                         })
                                         .addOnFailureListener(new OnFailureListener() {

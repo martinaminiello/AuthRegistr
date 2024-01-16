@@ -30,6 +30,7 @@ public class AccessoRichiedenteAsilo extends AppCompatActivity {
     private Button login;
     private TextView registerRedirect;
 
+    private TextView forgotPassword;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,6 +40,7 @@ public class AccessoRichiedenteAsilo extends AppCompatActivity {
         password=findViewById(R.id.Logpassword);
         login=findViewById(R.id.loginButton);
         registerRedirect=findViewById(R.id.notyetRegistered);
+        forgotPassword=findViewById(R.id.password_persa);
 
         mAuth = FirebaseAuth.getInstance();
 
@@ -84,6 +86,30 @@ public class AccessoRichiedenteAsilo extends AppCompatActivity {
 
             }
         });
+
+        forgotPassword.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String userEmail = email.getText().toString().trim();
+
+                if (!userEmail.isEmpty() && Patterns.EMAIL_ADDRESS.matcher(userEmail).matches()) {
+                    mAuth.sendPasswordResetEmail(userEmail)
+                            .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                @Override
+                                public void onComplete(@NonNull Task<Void> task) {
+                                    if (task.isSuccessful()) {
+                                        Toast.makeText(AccessoRichiedenteAsilo.this, "Controlla le email per resettare la password", Toast.LENGTH_SHORT).show();
+                                    } else {
+                                        Toast.makeText(AccessoRichiedenteAsilo.this, "Impossibile resettare la password", Toast.LENGTH_SHORT).show();
+                                    }
+                                }
+                            });
+                } else {
+                    email.setError("Inserisci un indirizzo email valido");
                 }
             }
+        });
+    }
+}
+
 
