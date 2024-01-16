@@ -19,5 +19,27 @@
 
     </array>
 
+    <array name="parentele">
+
+        <item>madre</item>
+        <item>padre</item>
+        <item>figlio</item>
+        <item>figlia</item>
+        <item>fratello</item>
+        <item>sorella</item>
+        <item>cugino</item>
+        <item>cugina</item>
+        <item>zio</item>
+        <item>zia</item>
+        <item>nonno</item>
+        <item>nonna</item>
+        <item>nipote(zii)</item>
+        <item>nipote(nonni)</item>
+        <item>moglie</item>
+        <item>marito</item>
+
+
+    </array>
+
 
 </resources>
