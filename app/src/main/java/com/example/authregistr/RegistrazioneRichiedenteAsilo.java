@@ -9,20 +9,37 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class RegistrazioneRichiedenteAsilo extends AppCompatActivity {
 
     private static final String TAG = "AccessoRichiedenteAsilo"; // Add this line to define the TAG
     private FirebaseAuth mAuth;
+    private final FirebaseFirestore db = FirebaseFirestore.getInstance();
     private EditText email;
     private EditText password;
+    private EditText nome;
+    private EditText cognome;
+    private Spinner genderSpinner;
+
+    private EditText cellulare;
+    private EditText luogonascita;
+
     private Button register;
     private TextView loginRedirect;
 
@@ -35,6 +52,11 @@ public class RegistrazioneRichiedenteAsilo extends AppCompatActivity {
         password=findViewById(R.id.password);
         register=findViewById(R.id.confirm_registration);
         loginRedirect=findViewById(R.id.alreadyRegistered);
+        nome=findViewById(R.id.nome);
+        cognome=findViewById(R.id.cognome);
+        genderSpinner=findViewById(R.id.spinner_genere);
+        cellulare=findViewById(R.id.cell);
+        luogonascita=findViewById(R.id.luogoNascita);
 
         mAuth = FirebaseAuth.getInstance();
 
@@ -54,16 +76,48 @@ public class RegistrazioneRichiedenteAsilo extends AppCompatActivity {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if(task.isSuccessful()){
-                                Toast.makeText(RegistrazioneRichiedenteAsilo.this,"Registrazione avvenuta con successo",Toast.LENGTH_SHORT).show();
-                                startActivity(new Intent(RegistrazioneRichiedenteAsilo.this,AccessoRichiedenteAsilo.class));
+                                FirebaseUser currentUser = mAuth.getCurrentUser();
+                                String uid = currentUser.getUid();
+                                DocumentReference documentRichiedenteAsilo = db.collection("RichiedenteAsilo").document(uid);
 
-                                Log.d(TAG, "FINISH successful");
-                            }else {
-                                Toast.makeText(RegistrazioneRichiedenteAsilo.this,"Registrazione fallita"+ task.getException().getMessage(),Toast.LENGTH_SHORT).show();
+                                String nomeValue = nome.getText().toString().trim();
+                                String cognomeValue = cognome.getText().toString().trim();
+                                String cellulareValue = cellulare.getText().toString().trim();
+                                String luogonascitaValue = luogonascita.getText().toString().trim();
+                                String passwordValue = password.getText().toString().trim();
+                                String emailValue = email.getText().toString().trim();
+
+                                String genereValue = genderSpinner.getSelectedItem().toString();
+
+                                Map<String, Object> RichiedenteAsilo = new HashMap<>();
+                                RichiedenteAsilo.put("ID_RichiedenteAsilo", uid);
+                                RichiedenteAsilo.put("Nome", nomeValue);
+                                RichiedenteAsilo.put("Cognome", cognomeValue);
+                                RichiedenteAsilo.put("Cellulare", cellulareValue);
+                                RichiedenteAsilo.put("LuogoNascita", luogonascitaValue);
+                                RichiedenteAsilo.put("Genere", genereValue);
+                                RichiedenteAsilo.put("Password", passwordValue);
+                                RichiedenteAsilo.put("Email", emailValue);
+
+                                documentRichiedenteAsilo
+                                        .set(RichiedenteAsilo)
+                                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                            @Override
+                                            public void onSuccess(Void aVoid) {
+                                                Toast.makeText(RegistrazioneRichiedenteAsilo.this, "Registrazione avvenuta con successo", Toast.LENGTH_SHORT).show();
+                                                startActivity(new Intent(RegistrazioneRichiedenteAsilo.this, AccessoRichiedenteAsilo.class));
+                                                Log.d(TAG, "FINISH successful");
+                                            }
+                                        })
+                                        .addOnFailureListener(new OnFailureListener() {
+                                            @Override
+                                            public void onFailure(@NonNull Exception e) {
+                                                Toast.makeText(RegistrazioneRichiedenteAsilo.this, "Registrazione fallita" + e.getMessage(), Toast.LENGTH_SHORT).show();
+                                            }
+                                        });
                             }
                         }
                     });
-
                 }
             }
         });
@@ -72,7 +126,6 @@ public class RegistrazioneRichiedenteAsilo extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(RegistrazioneRichiedenteAsilo.this,AccessoRichiedenteAsilo.class));
-
             }
         });
     }
