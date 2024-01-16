@@ -42,13 +42,7 @@ public class MainActivity extends AppCompatActivity {
         views_user.add("Richiedente Asilo");
         views_user.add("Staff");
 
-        mAuth = FirebaseAuth.getInstance();
-        FirebaseUser currentUser = mAuth.getCurrentUser();
-        if (currentUser != null) {
-            // User is already logged in, go to HomeR
-            startActivity(new Intent(MainActivity.this, HomeR.class));
-            finish();
-        }
+
 
 
         UserSpinnerAdapter adapterChoice = new UserSpinnerAdapter(this, android.R.layout.simple_spinner_item, views_user.toArray(new String[0]));

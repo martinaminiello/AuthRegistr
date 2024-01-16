@@ -17,4 +17,16 @@
         app:titleTextColor="#FFFFFF"
         app:menu="@menu/menu_bar"/>
 
+    <TextView
+        android:id="@+id/Benvenuto"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Benvenuto "
+        android:textSize="16sp"
+        android:layout_marginTop="60dp"
+        android:padding="25dp"
+        android:textStyle="bold">
+
+    </TextView>
+
 </RelativeLayout>

@@ -1,5 +1,6 @@
 package com.example.authregistr;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
@@ -14,12 +15,22 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.TextView;
 import android.widget.Toast;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 public class HomeR extends AppCompatActivity {
 
     private FirebaseAuth mAuth;
+    private TextView benvenuto;
+    private final FirebaseFirestore db = FirebaseFirestore.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,11 +38,33 @@ public class HomeR extends AppCompatActivity {
         setContentView(R.layout.activity_home_r);
 
         mAuth = FirebaseAuth.getInstance();
+        benvenuto=findViewById(R.id.Benvenuto);
 
         Toolbar toolbar = findViewById(R.id.toolbar);
 
         setSupportActionBar(toolbar);
 
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+        if (currentUser != null) {
+            String uid = currentUser.getUid();
+            DocumentReference documentRichiedenteAsilo = db.collection("RichiedenteAsilo").document(uid);
+
+            documentRichiedenteAsilo.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                @Override
+                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                    if (task.isSuccessful()) {
+                        DocumentSnapshot document = task.getResult();
+                        if (document.exists()) {
+                            // Retrieve the value of the "Nome" field
+                            String nome = document.getString("Nome");
+
+                            // Use the retrieved value as needed
+                            benvenuto.setText("Benvenuto, " + nome + "!");
+                        }
+                    }
+                }
+            });
+        }
     }
 
     @Override

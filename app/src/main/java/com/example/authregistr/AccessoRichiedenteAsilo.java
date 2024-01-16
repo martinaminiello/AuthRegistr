@@ -56,8 +56,10 @@ public class AccessoRichiedenteAsilo extends AppCompatActivity {
                             @Override
                             public void onSuccess(AuthResult authResult) {
                                 Toast.makeText(AccessoRichiedenteAsilo.this, "Accesso avvenuto con successo", Toast.LENGTH_SHORT).show();
-                                startActivity(new Intent(AccessoRichiedenteAsilo.this, HomeR.class));
-                                  finish();
+                                Intent intent = new Intent(AccessoRichiedenteAsilo.this, HomeR.class);
+                                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                startActivity(intent);
+                                finish();
                             }
                         }).addOnFailureListener(new OnFailureListener() {
                             @Override
