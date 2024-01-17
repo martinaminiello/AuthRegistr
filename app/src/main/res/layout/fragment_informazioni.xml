@@ -128,8 +128,9 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
+                android:inputType="phone"
                 android:layout_weight="1"
-                android:inputType="none" />
+                 />
 
 
         </LinearLayout>
@@ -174,7 +175,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_weight="1"
-                android:inputType="none"
+                android:inputType="text"
+
                 />
 
 
@@ -208,7 +210,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_weight="1"
-                android:inputType="none" />
+                android:inputType="textEmailAddress"
+              />
 
 
         </LinearLayout>
