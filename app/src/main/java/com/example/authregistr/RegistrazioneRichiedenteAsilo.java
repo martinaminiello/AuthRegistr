@@ -189,41 +189,62 @@ public class RegistrazioneRichiedenteAsilo extends AppCompatActivity {
         // Get the reference to the "RichiedenteAsilo" document using the provided UID
         DocumentReference documentRichiedenteAsilo = db.collection("RichiedenteAsilo").document(uid);
 
-        // Create a map with the data you want to store
-        Map<String, Object> richiedenteAsilo = new HashMap<>();
-        richiedenteAsilo.put("ID_RichiedenteAsilo", uid);
-        richiedenteAsilo.put("Nome", nomeValue);
-        richiedenteAsilo.put("Cognome", cognomeValue);
-        richiedenteAsilo.put("Cellulare", cellulareValue);
-        richiedenteAsilo.put("LuogoNascita", luogonascitaValue);
-        richiedenteAsilo.put("DataNascita", nascitaValue);
-        richiedenteAsilo.put("Genere", genereValue);
-        richiedenteAsilo.put("Password", useremail);
-        richiedenteAsilo.put("Email", useremail);
+        // Get the staff document to retrieve the Centro field
+        DocumentReference documentStaff = db.collection("Staff").document(uidStaff);
 
-        documentRichiedenteAsilo.set(richiedenteAsilo)
-                .addOnSuccessListener(new OnSuccessListener<Void>() {
-                    @Override
-                    public void onSuccess(Void aVoid) {
+        // Retrieve the Centro field from the Staff document
+        documentStaff.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if (task.isSuccessful()) {
+                    DocumentSnapshot staffDocument = task.getResult();
+                    if (staffDocument.exists()) {
+                        // Retrieve Centro from the Staff document
+                        String centroValue = staffDocument.getString("Centro");
 
-                        getStaffCredentialsAndSignIn(uidStaff);
-                        // Registration successful
-                        progressBar.setVisibility(View.GONE);  // Dismiss progress bar
-                        Toast.makeText(RegistrazioneRichiedenteAsilo.this, "Registration successful", Toast.LENGTH_SHORT).show();
+                        // Create a map with the data you want to store
+                        Map<String, Object> richiedenteAsilo = new HashMap<>();
+                        richiedenteAsilo.put("ID_RichiedenteAsilo", uid);
+                        richiedenteAsilo.put("Nome", nomeValue);
+                        richiedenteAsilo.put("Cognome", cognomeValue);
+                        richiedenteAsilo.put("Cellulare", cellulareValue);
+                        richiedenteAsilo.put("LuogoNascita", luogonascitaValue);
+                        richiedenteAsilo.put("DataNascita", nascitaValue);
+                        richiedenteAsilo.put("Genere", genereValue);
+                        richiedenteAsilo.put("Password", useremail);
+                        richiedenteAsilo.put("Email", useremail);
+                        richiedenteAsilo.put("Centro", centroValue); // Add the Centro field
 
-                        startActivity(new Intent(RegistrazioneRichiedenteAsilo.this, HomeS.class));
-                        Log.d(TAG, "Registration successful");
+                        documentRichiedenteAsilo.set(richiedenteAsilo)
+                                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                    @Override
+                                    public void onSuccess(Void aVoid) {
+                                        getStaffCredentialsAndSignIn(uidStaff);
+                                        progressBar.setVisibility(View.GONE);
+                                        Toast.makeText(RegistrazioneRichiedenteAsilo.this, "Registration successful", Toast.LENGTH_SHORT).show();
+                                        startActivity(new Intent(RegistrazioneRichiedenteAsilo.this, HomeS.class));
+                                        Log.d(TAG, "Registration successful");
+                                    }
+                                })
+                                .addOnFailureListener(new OnFailureListener() {
+                                    @Override
+                                    public void onFailure(@NonNull Exception e) {
+                                        progressBar.setVisibility(View.GONE);
+                                        Toast.makeText(RegistrazioneRichiedenteAsilo.this, "Registration failed: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                                        Log.e(TAG, "Registration failed: " + e.getMessage());
+                                    }
+                                });
+                    } else {
+                        progressBar.setVisibility(View.GONE);
+                        Log.e(TAG, "Staff document doesn't exist");
+                        // Handle the case where the Staff document doesn't exist
                     }
-                })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        // Registration failed
-                        progressBar.setVisibility(View.GONE);  // Dismiss progress bar
-                        Toast.makeText(RegistrazioneRichiedenteAsilo.this, "Registration failed: " + e.getMessage(), Toast.LENGTH_SHORT).show();
-                        Log.e(TAG, "Registration failed: " + e.getMessage());
-                    }
-                });
+                } else {
+                    progressBar.setVisibility(View.GONE);
+                    Log.e(TAG, "Error getting Staff document: " + task.getException().getMessage());
+                }
+            }
+        });
     }
 
 
