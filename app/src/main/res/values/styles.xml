@@ -2,11 +2,9 @@
 <resources>
 
     <style name="DatePickerStyle" parent="Theme.AppCompat.Light.Dialog">
-        <item name="colorAccent">#FF076AEC</item> <!-- Color of the selected date -->
-        <item name="android:textColorPrimary">#FF076AEC</item> <!-- Color of the text and buttons -->
-        <item name="android:colorControlActivated">#FF076AEC</item> <!-- Color of the activated control (OK button) -->
-        <item name="android:colorControlHighlight">#FF076AEC</item> <!-- Color of the highlight when pressed -->
-        <item name="android:colorControlNormal">#FF076AEC</item> <!-- Color of the control (CANCEL button) -->
-        <item name="android:background">#9FAEFA</item> <!-- Background color of the DatePickerDialog -->
+        <item name="colorAccent">#73B6FA</item> <!-- Color of the selected date -->
+        <item name="android:textColorPrimary">#FFFFFF</item> <!-- Color of the text and buttons -->
+
+        <item name="android:background">#FF076AEC</item> <!-- Background color of the DatePickerDialog -->
     </style>
 </resources>

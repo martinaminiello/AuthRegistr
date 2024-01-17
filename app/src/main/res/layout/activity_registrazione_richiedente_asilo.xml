@@ -34,14 +34,14 @@
         android:layout_marginBottom="-9dp"
         android:gravity="center"
         android:orientation="vertical"
-        android:padding="50dp">
+        android:padding="20dp">
 
         <TextView
             android:id="@+id/signupText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Sign-up"
-            android:layout_marginTop="50dp"
+            android:layout_marginTop="80dp"
             android:textAlignment="center"
             android:textColor="#504F4F"
             android:textSize="25sp"
@@ -52,73 +52,120 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="left"
-            android:padding="4dp"
-            android:layout_marginTop="35dp"
+            android:paddingBottom="5dp"
+            android:layout_marginStart="21dp"
+            android:layout_marginTop="30dp"
             android:text=" Nome"
             android:textSize="16dp"
             android:textStyle="bold" />
+    <LinearLayout
+
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+android:layout_gravity="center"
+        android:layout_marginStart="0dp"
+
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/personIcon"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:src="@drawable/profilllle_removebg_preview" />
 
         <EditText
             android:id="@+id/nome"
-            android:layout_width="match_parent"
-            android:layout_height="45dp"
-            android:layout_marginTop="2dp"
-            android:textSize="16sp"
-            android:drawablePadding="10dp"
-
-            android:inputType="textPersonName"
-            android:padding="10dp"
-            android:textColor="@color/black" />
+            android:layout_width="220dp"
+            android:layout_height="55dp"
+            android:drawablePadding="8dp"
+            android:inputType="textEmailAddress"
+            android:padding="8dp"
+            android:textColor="@color/black"
+            android:textSize="16dp" />
+    </LinearLayout>
 
         <TextView
             android:id="@+id/textCognome"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="left"
-            android:padding="4dp"
+            android:layout_marginStart="21dp"
             android:layout_marginTop="8dp"
-
+            android:paddingBottom="5dp"
             android:text=" Cognome"
             android:textSize="16dp"
             android:textStyle="bold" />
-        <EditText
-            android:id="@+id/cognome"
-            android:layout_width="match_parent"
-            android:layout_height="45dp"
-            android:textSize="16sp"
-            android:drawablePadding="10dp"
+        <LinearLayout
 
-            android:inputType="textPersonName"
-            android:padding="10dp"
-            android:textColor="@color/black" />
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:layout_marginStart="0dp"
+
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/cognomIcon"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:src="@drawable/profilllle_removebg_preview" />
+
+            <EditText
+                android:id="@+id/cognome"
+                android:layout_width="220dp"
+                android:layout_height="55dp"
+                android:drawablePadding="8dp"
+                android:inputType="textEmailAddress"
+                android:padding="8dp"
+                android:textColor="@color/black"
+                android:textSize="16dp" />
+        </LinearLayout>
         <TextView
             android:id="@+id/textGenere"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="left"
-            android:padding="4dp"
+            android:layout_marginStart="21dp"
             android:layout_marginTop="8dp"
-
+            android:paddingBottom="5dp"
             android:text=" Genere"
             android:textSize="16dp"
             android:textStyle="bold" />
 
-        <Spinner
-            android:id="@+id/spinner_genere"
-            style="@style/Widget.Material3.TextInputLayout.FilledBox.Dense"
-            android:layout_width="wrap_content"
-            android:layout_height="45dp"
-            android:layout_gravity="start|left"
-            android:layout_marginLeft="20sp"
-            android:layout_marginEnd="20sp"
+        <LinearLayout
 
-            android:textSize="16sp"
-            android:layout_marginRight="20sp"
-            android:layout_marginBottom="20sp"
-            android:entries="@array/gender_options"
-            android:outlineAmbientShadowColor="#076AEC"
-            android:prompt="@string/genere_prompt"
-            app:boxStrokeColor="#076AEC" />
+            android:layout_width="274dp"
+            android:layout_height="56dp"
+
+
+
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/genderIcon"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:src="@drawable/gendericon_removebg_preview__3_" />
+
+            <Spinner
+                android:id="@+id/spinner_genere"
+                style="@style/Widget.Material3.TextInputLayout.FilledBox.Dense"
+                android:layout_width="220dp"
+                android:layout_height="55dp"
+                android:layout_gravity="start|left"
+                android:layout_marginLeft="20sp"
+                android:layout_marginEnd="20sp"
+
+                android:layout_marginRight="20sp"
+                android:layout_marginBottom="20sp"
+                android:entries="@array/gender_options"
+                android:outlineAmbientShadowColor="#076AEC"
+                android:prompt="@string/genere_prompt"
+                android:textSize="16sp"
+                app:boxStrokeColor="#076AEC" />
+        </LinearLayout>
+
+
 
 
         <TextView
@@ -126,81 +173,129 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="left"
-
-            android:layout_marginTop="-15dp"
-            android:padding="4dp"
+            android:paddingBottom="5dp"
+            android:layout_marginTop="3dp"
+            android:layout_marginStart="21dp"
             android:text=" Email"
             android:textSize="16dp"
             android:textStyle="bold" />
 
-        <EditText
-            android:id="@+id/email"
-            android:layout_width="match_parent"
-            android:layout_height="45dp"
-            android:layout_marginTop="2dp"
-            android:drawablePadding="8dp"
+        <LinearLayout
 
-            android:textSize="16sp"
-            android:inputType="textEmailAddress"
-            android:padding="8dp"
-            android:textColor="@color/black" />
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:layout_marginStart="0dp"
+
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/emailIcon"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
+                android:src="@drawable/untitled_design__3__removebg_preview" />
+
+            <EditText
+                android:id="@+id/email"
+                android:layout_width="220dp"
+                android:layout_height="55dp"
+                android:drawablePadding="8dp"
+                android:inputType="textEmailAddress"
+                android:padding="8dp"
+                android:textColor="@color/black"
+                android:textSize="16dp" />
+        </LinearLayout>
+
         <TextView
             android:id="@+id/textPassword"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="left"
-            android:padding="4dp"
+            android:layout_marginStart="21dp"
             android:layout_marginTop="8dp"
             android:text=" Password"
             android:textSize="16dp"
+            android:paddingBottom="5dp"
             android:textStyle="bold" />
 
-        <EditText
-            android:id="@+id/password"
-            android:layout_width="match_parent"
-            android:layout_height="45dp"
-            android:textSize="16sp"
-            android:drawablePadding="10dp"
+        <LinearLayout
 
-            android:inputType="textPassword"
-            android:padding="10dp"
-            android:textColor="@color/black" />
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:layout_marginStart="0dp"
+
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/passwordIcon2"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
+                android:src="@drawable/passicon_removebg_preview__1_" />
+
+            <EditText
+                android:id="@+id/password"
+                android:layout_width="220dp"
+                android:layout_height="55dp"
+                android:drawablePadding="8dp"
+                android:inputType="textEmailAddress"
+                android:padding="8dp"
+                android:textColor="@color/black"
+                android:textSize="16dp" />
+        </LinearLayout>
         <TextView
             android:id="@+id/textCell"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="left"
-            android:padding="4dp"
+            android:layout_marginStart="21dp"
             android:layout_marginTop="8dp"
             android:text=" Cellulare"
+            android:paddingBottom="5dp"
             android:textSize="16dp"
             android:textStyle="bold" />
 
 
-        <EditText
-            android:id="@+id/cell"
-            android:layout_width="match_parent"
-            android:layout_height="45dp"
-            android:textSize="16sp"
-            android:drawablePadding="10dp"
+        <LinearLayout
 
-            android:inputType="phone|text"
-            android:padding="10dp"
-            android:textColor="@color/black" />
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:layout_marginStart="0dp"
+
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/cellIcon"
+                android:layout_width="49dp"
+                android:layout_height="49dp"
+                android:src="@drawable/untitled_design__6__removebg_preview" />
+
+            <EditText
+                android:id="@+id/cell"
+                android:layout_width="220dp"
+                android:layout_height="55dp"
+                android:drawablePadding="8dp"
+                android:inputType="textEmailAddress"
+                android:padding="8dp"
+                android:textColor="@color/black"
+                android:textSize="16dp" />
+        </LinearLayout>
         <TextView
             android:id="@+id/textNascita"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="left"
-            android:padding="4dp"
+            android:layout_marginStart="21dp"
             android:layout_marginTop="8dp"
             android:text=" Data di nascita"
             android:textSize="16dp"
+            android:paddingBottom="5dp"
             android:textStyle="bold" />
 
     <LinearLayout
 
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
 
 
@@ -208,10 +303,15 @@
         android:orientation="horizontal"
        >
 
+        <ImageView
+            android:id="@+id/calnedarIcon"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
 
+            android:src="@drawable/ccal_removebg_preview__1_" />
         <EditText
             android:id="@+id/dataNascita"
-            android:layout_width="wrap_content"
+            android:layout_width="220dp"
             android:layout_height="45dp"
             android:drawablePadding="10dp"
             android:hint="gg/mm/aaaa"
@@ -219,12 +319,7 @@
             android:padding="10dp"
             android:textColor="@color/black"
             android:textSize="16sp" />
-        <ImageView
-            android:id="@+id/imageHome"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_marginLeft="10dp"
-            android:src="@drawable/ccal_removebg_preview__1_" />
+
 
     </LinearLayout>
         <TextView
@@ -232,22 +327,39 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="left"
-            android:padding="4dp"
+            android:layout_marginStart="21dp"
+
             android:layout_marginTop="8dp"
             android:text=" Luogo di nascita"
             android:textSize="16dp"
+            android:paddingBottom="5dp"
             android:textStyle="bold" />
 
-        <EditText
-            android:id="@+id/luogoNascita"
-            android:layout_width="match_parent"
-            android:layout_height="45dp"
-            android:textSize="16sp"
-            android:drawablePadding="10dp"
+        <LinearLayout
 
-            android:inputType="text"
-            android:padding="10dp"
-            android:textColor="@color/black" />
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:layout_marginStart="0dp"
+
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/placeIcon"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
+                android:src="@drawable/untitled_design__2__removebg_preview" />
+
+            <EditText
+                android:id="@+id/luogoNascita"
+                android:layout_width="220dp"
+                android:layout_height="55dp"
+                android:drawablePadding="8dp"
+                android:inputType="textEmailAddress"
+                android:padding="8dp"
+                android:textColor="@color/black"
+                android:textSize="16dp" />
+        </LinearLayout>
 
 
 

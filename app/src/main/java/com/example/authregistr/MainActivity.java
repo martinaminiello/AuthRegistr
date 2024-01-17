@@ -32,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
         choice=findViewById(R.id.spinner_scelta_Utente) ;
         Spinner languageSpinner = findViewById(R.id.spinner_lingua);
 
-        // Your list of languages
+
         List<String> languages = Arrays.asList("ITA", "ENG");
 
         FlagSpinnerAdapter adapter = new FlagSpinnerAdapter(this, R.layout.flag_spinner, languages);

@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -27,25 +28,26 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserProfileChangeRequest;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
-public class RegistrazioneRichiedenteAsilo extends AppCompatActivity {
+public class RegistrazioneStaff extends AppCompatActivity {
 
     private static final String TAG = "AccessoRichiedenteAsilo"; // Add this line to define the TAG
     private FirebaseAuth mAuth;
     private final FirebaseFirestore db = FirebaseFirestore.getInstance();
     private EditText email;
     private EditText password;
-    private EditText nome;
-    private EditText cognome;
-    private Spinner genderSpinner;
+
+    private Spinner centroSpinner;
 
     private EditText cellulare;
-    private EditText luogonascita;
-    private EditText datadinascita;
+
 
     private Button register;
     private TextView loginRedirect;
@@ -55,31 +57,41 @@ public class RegistrazioneRichiedenteAsilo extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_registrazione_richiedente_asilo);
+        setContentView(R.layout.activity_registrazione_staff);
 
         email = findViewById(R.id.email);
         password = findViewById(R.id.password);
         register = findViewById(R.id.confirm_registration);
         loginRedirect = findViewById(R.id.alreadyRegistered);
-        nome = findViewById(R.id.nome);
-        cognome = findViewById(R.id.cognome);
-        genderSpinner = findViewById(R.id.spinner_genere);
+
+        centroSpinner = findViewById(R.id.spinner_centro);
         cellulare = findViewById(R.id.cell);
-        luogonascita = findViewById(R.id.luogoNascita);
+
         progressBar=findViewById(R.id.progressBar);
 
 
 
         mAuth = FirebaseAuth.getInstance();
 
-        datadinascita = findViewById(R.id.dataNascita);
-        ImageView calendar = findViewById(R.id.calnedarIcon);
-        calendar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                showDatePicker();
-            }
-        });
+        db.collection("CentroAccoglienza")
+                .get()
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        List<String> centerNames = new ArrayList<>();
+                        for (QueryDocumentSnapshot document : task.getResult()) {
+                            // Assuming "Nome" is the field you want to retrieve
+                            String nome = document.getString("Nome");
+                            centerNames.add(nome);
+                        }
+
+                        // Populate Spinner with center names
+                        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, centerNames);
+                        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                        centroSpinner.setAdapter(adapter);
+                    } else {
+                        Log.d(TAG, "Error getting documents: ", task.getException());
+                    }
+                });
 
 
         register.setOnClickListener(new View.OnClickListener() {
@@ -87,31 +99,29 @@ public class RegistrazioneRichiedenteAsilo extends AppCompatActivity {
             public void onClick(View v) {
                 String useremail = email.getText().toString().trim();
                 String userpass = password.getText().toString().trim();
-                String nomeValue = nome.getText().toString().trim();
-                String cognomeValue = cognome.getText().toString().trim();
+
                 String cellulareValue = cellulare.getText().toString().trim();
-                String luogonascitaValue = luogonascita.getText().toString().trim();
-                String nascitaValue = datadinascita.getText().toString().trim();
 
 
-                String genereValue = genderSpinner.getSelectedItem().toString();
+
+                String centroValue = centroSpinner.getSelectedItem().toString();
 
                 if (useremail.isEmpty()) {
                     email.setError("Email required");
                 }
                 if (userpass.isEmpty()) {
                     password.setError("Password required");
-                }  if (useremail.isEmpty() || userpass.isEmpty() || nomeValue.isEmpty() || cognomeValue.isEmpty() ||
-                        cellulareValue.isEmpty() || luogonascitaValue.isEmpty() || nascitaValue.isEmpty() || genereValue.isEmpty()) {
-                    Toast.makeText(RegistrazioneRichiedenteAsilo.this, "Riempire tutti i campi!", Toast.LENGTH_SHORT).show();
+                }  if (useremail.isEmpty() || userpass.isEmpty() ||
+                        cellulareValue.isEmpty() || centroValue.isEmpty()) {
+                    Toast.makeText(RegistrazioneStaff.this, "Riempire tutti i campi!", Toast.LENGTH_SHORT).show();
                 } if (!isValidEmail(useremail)) {
-                    Toast.makeText(RegistrazioneRichiedenteAsilo.this, "Email non valida!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(RegistrazioneStaff.this, "Email non valida!", Toast.LENGTH_SHORT).show();
                     return; // Stop registration if email is not valid
                 }
 
                 // Validate phone number format
                 if (!isValidPhoneNumber(cellulareValue)) {
-                    Toast.makeText(RegistrazioneRichiedenteAsilo.this, "Cellulare non valido!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(RegistrazioneStaff.this, "Cellulare non valido!", Toast.LENGTH_SHORT).show();
                     return; // Stop registration if phone number is not valid
                 } else {
                     progressBar.setVisibility(View.VISIBLE);
@@ -121,22 +131,18 @@ public class RegistrazioneRichiedenteAsilo extends AppCompatActivity {
                             if (task.isSuccessful()) {
                                 FirebaseUser currentUser = mAuth.getCurrentUser();
                                 String uid = currentUser.getUid();
-                                DocumentReference documentRichiedenteAsilo = db.collection("RichiedenteAsilo").document(uid);
+                                DocumentReference documentStaff = db.collection("Staff").document(uid);
 
                                 Map<String, Object> RichiedenteAsilo = new HashMap<>();
-                                RichiedenteAsilo.put("ID_RichiedenteAsilo", uid);
-                                RichiedenteAsilo.put("Nome", nomeValue);
-                                RichiedenteAsilo.put("Cognome", cognomeValue);
+                                RichiedenteAsilo.put("ID_Staff", uid);
                                 RichiedenteAsilo.put("Cellulare", cellulareValue);
-                                RichiedenteAsilo.put("LuogoNascita", luogonascitaValue);
-                                RichiedenteAsilo.put("DataNascita", nascitaValue);
-                                RichiedenteAsilo.put("Genere", genereValue);
+                                RichiedenteAsilo.put("Centro", centroValue);
                                 RichiedenteAsilo.put("Password", useremail);
                                 RichiedenteAsilo.put("Email", useremail);
 
 
 
-                                documentRichiedenteAsilo
+                                documentStaff
                                         .set(RichiedenteAsilo)
                                         .addOnSuccessListener(new OnSuccessListener<Void>() {
                                             @Override
@@ -152,11 +158,11 @@ public class RegistrazioneRichiedenteAsilo extends AppCompatActivity {
                                                     public void onComplete(@NonNull Task<Void> task) {
                                                         if (task.isSuccessful()) {
                                                             progressBar.setVisibility(View.GONE);
-                                                            Toast.makeText(RegistrazioneRichiedenteAsilo.this, "Registrazione avvenuta con successo", Toast.LENGTH_SHORT).show();
-                                                            startActivity(new Intent(RegistrazioneRichiedenteAsilo.this, AccessoRichiedenteAsilo.class));
+                                                            Toast.makeText(RegistrazioneStaff.this, "Registrazione avvenuta con successo", Toast.LENGTH_SHORT).show();
+                                                            startActivity(new Intent(RegistrazioneStaff.this, AccessoStaff.class));
                                                             Log.d(TAG, "FINISH successful");
                                                         } else {
-                                                            Toast.makeText(RegistrazioneRichiedenteAsilo.this, "Registrazione fallita" + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                                                            Toast.makeText(RegistrazioneStaff.this, "Registrazione fallita" + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                                                         }
                                                     }
                                                 });
@@ -165,7 +171,7 @@ public class RegistrazioneRichiedenteAsilo extends AppCompatActivity {
                                         .addOnFailureListener(new OnFailureListener() {
                                             @Override
                                             public void onFailure(@NonNull Exception e) {
-                                                Toast.makeText(RegistrazioneRichiedenteAsilo.this, "Registrazione fallita" + e.getMessage(), Toast.LENGTH_SHORT).show();
+                                                Toast.makeText(RegistrazioneStaff.this, "Registrazione fallita" + e.getMessage(), Toast.LENGTH_SHORT).show();
                                             }
                                         });
                             }
@@ -178,31 +184,14 @@ public class RegistrazioneRichiedenteAsilo extends AppCompatActivity {
         loginRedirect.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(RegistrazioneRichiedenteAsilo.this, AccessoRichiedenteAsilo.class));
+                startActivity(new Intent(RegistrazioneStaff.this, AccessoStaff.class));
             }
         });
 
 
     }
 
-    public void showDatePicker() {
-        final Calendar currentDate = Calendar.getInstance();
-        int year = currentDate.get(Calendar.YEAR);
-        int month = currentDate.get(Calendar.MONTH);
-        int day = currentDate.get(Calendar.DAY_OF_MONTH);
 
-        // Apply the custom style
-        DatePickerDialog datePickerDialog = new DatePickerDialog(this, R.style.DatePickerStyle,
-                new DatePickerDialog.OnDateSetListener() {
-                    @Override
-                    public void onDateSet(DatePicker view, int selectedYear, int selectedMonth, int selectedDay) {
-                        String selectedDate = selectedDay + "/" + (selectedMonth + 1) + "/" + selectedYear;
-                        datadinascita.setText(selectedDate);
-                    }
-                }, year, month, day);
-
-        datePickerDialog.show();
-    }
 
     // Email validation method
     private boolean isValidEmail(String email) {
