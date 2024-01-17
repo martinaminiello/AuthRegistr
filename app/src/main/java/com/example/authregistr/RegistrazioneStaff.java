@@ -137,8 +137,9 @@ public class RegistrazioneStaff extends AppCompatActivity {
                                 RichiedenteAsilo.put("ID_Staff", uid);
                                 RichiedenteAsilo.put("Cellulare", cellulareValue);
                                 RichiedenteAsilo.put("Centro", centroValue);
-                                RichiedenteAsilo.put("Password", useremail);
+                                RichiedenteAsilo.put("Password", userpass);
                                 RichiedenteAsilo.put("Email", useremail);
+                                RichiedenteAsilo.put("Ruolo", "Staff");
 
 
 

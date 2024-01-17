@@ -39,7 +39,7 @@ public class AccessoRichiedenteAsilo extends AppCompatActivity {
         email=findViewById(R.id.Logemail);
         password=findViewById(R.id.Logpassword);
         login=findViewById(R.id.loginButton);
-        registerRedirect=findViewById(R.id.notyetRegistered);
+
         forgotPassword=findViewById(R.id.password_persa);
 
         mAuth = FirebaseAuth.getInstance();
@@ -81,13 +81,7 @@ public class AccessoRichiedenteAsilo extends AppCompatActivity {
                         }
                     });
 
-        registerRedirect.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(AccessoRichiedenteAsilo.this,RegistrazioneRichiedenteAsilo.class));
 
-            }
-        });
 
         forgotPassword.setOnClickListener(new View.OnClickListener() {
             @Override

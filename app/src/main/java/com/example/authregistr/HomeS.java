@@ -33,6 +33,8 @@ public class HomeS extends AppCompatActivity {
     private TextView benvenuto;
     private final FirebaseFirestore db = FirebaseFirestore.getInstance();
 
+    private Button aggiungiUtente;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,6 +46,16 @@ public class HomeS extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
 
         setSupportActionBar(toolbar);
+
+        aggiungiUtente=findViewById(R.id.btnAggiungiUtente);
+
+        aggiungiUtente.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(HomeS.this, RegistrazioneRichiedenteAsilo.class);
+                startActivity(intent);
+            }
+        });
 
        Button admin=findViewById(R.id.btnAmministrazione);
 

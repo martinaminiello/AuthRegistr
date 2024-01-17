@@ -94,12 +94,25 @@
         android:layout_below="@id/toolbar"
 
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="510dp"
+        android:layout_marginTop="482dp"
 
         android:backgroundTint="#FD9D50"
         android:elevation="12dp"
         android:onClick="addItemAction"
         android:text="Centro" />
+
+    <Button
+        android:id="@+id/btnAggiungiUtente"
+        android:layout_width="159dp"
+        android:layout_height="59dp"
+        android:layout_below="@id/toolbar"
+
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="553dp"
+
+        android:backgroundTint="#FD9D50"
+        android:elevation="12dp"
+        android:text="Aggiungi utente" />
 
     <ImageView
         android:id="@+id/imageView2"

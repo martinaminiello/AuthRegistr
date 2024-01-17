@@ -382,29 +382,7 @@ android:layout_gravity="center"
             android:layout_gravity="center"
             android:visibility="gone" />
 
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
-            android:orientation="horizontal">
 
-            <TextView
-                android:id="@+id/alreadyRegistered"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/password_persa"
-                android:layout_marginBottom="30dp"
-                android:onClick="Recupero_password"
-                android:padding="8dp"
-                android:textSize="15sp"
-                android:text="Sei già registrato? Login"
-                android:textAlignment="textStart"
-                android:textColor="#076AEB"
-
-                android:textStyle="normal" />
-
-
-        </LinearLayout>
 
 
     </LinearLayout>
