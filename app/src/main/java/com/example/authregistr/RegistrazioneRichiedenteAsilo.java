@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -222,8 +223,15 @@ public class RegistrazioneRichiedenteAsilo extends AppCompatActivity {
                                         getStaffCredentialsAndSignIn(uidStaff);
                                         progressBar.setVisibility(View.GONE);
                                         Toast.makeText(RegistrazioneRichiedenteAsilo.this, "Registration successful", Toast.LENGTH_SHORT).show();
-                                        startActivity(new Intent(RegistrazioneRichiedenteAsilo.this, HomeS.class));
-                                        Log.d(TAG, "Registration successful");
+
+                                        // Add a delay before starting the HomeS activity
+                                        new Handler().postDelayed(new Runnable() {
+                                            @Override
+                                            public void run() {
+                                                startActivity(new Intent(RegistrazioneRichiedenteAsilo.this, HomeS.class));
+                                                Log.d(TAG, "Registration successful");
+                                            }
+                                        }, 4000); // Delay of 1000 milliseconds (1 second)
                                     }
                                 })
                                 .addOnFailureListener(new OnFailureListener() {
@@ -234,7 +242,7 @@ public class RegistrazioneRichiedenteAsilo extends AppCompatActivity {
                                         Log.e(TAG, "Registration failed: " + e.getMessage());
                                     }
                                 });
-                    } else {
+                    }else {
                         progressBar.setVisibility(View.GONE);
                         Log.e(TAG, "Staff document doesn't exist");
                         // Handle the case where the Staff document doesn't exist
