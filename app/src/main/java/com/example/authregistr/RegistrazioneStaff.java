@@ -111,7 +111,11 @@ public class RegistrazioneStaff extends AppCompatActivity {
                 }
                 if (userpass.isEmpty()) {
                     password.setError("Password required");
-                }  if (useremail.isEmpty() || userpass.isEmpty() ||
+                }   if (userpass.length() < 6) {
+                    password.setError( "La password deve essere di almeno 6 caratteri!");
+
+                }
+                if (useremail.isEmpty() || userpass.isEmpty() ||
                         cellulareValue.isEmpty() || centroValue.isEmpty()) {
                     Toast.makeText(RegistrazioneStaff.this, "Riempire tutti i campi!", Toast.LENGTH_SHORT).show();
                 } if (!isValidEmail(useremail)) {
@@ -141,40 +145,29 @@ public class RegistrazioneStaff extends AppCompatActivity {
                                 RichiedenteAsilo.put("Email", useremail);
                                 RichiedenteAsilo.put("Ruolo", "Staff");
 
-
-
                                 documentStaff
                                         .set(RichiedenteAsilo)
                                         .addOnSuccessListener(new OnSuccessListener<Void>() {
                                             @Override
                                             public void onSuccess(Void aVoid) {
-
-                                                FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-                                                UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
-                                                        .setDisplayName(cellulareValue)
-                                                        .build();
-
-                                                user.updateProfile(profileUpdates).addOnCompleteListener(new OnCompleteListener<Void>() {
-                                                    @Override
-                                                    public void onComplete(@NonNull Task<Void> task) {
-                                                        if (task.isSuccessful()) {
-                                                            progressBar.setVisibility(View.GONE);
-                                                            Toast.makeText(RegistrazioneStaff.this, "Registrazione avvenuta con successo", Toast.LENGTH_SHORT).show();
-                                                            startActivity(new Intent(RegistrazioneStaff.this, AccessoStaff.class));
-                                                            Log.d(TAG, "FINISH successful");
-                                                        } else {
-                                                            Toast.makeText(RegistrazioneStaff.this, "Registrazione fallita" + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
-                                                        }
-                                                    }
-                                                });
+                                                progressBar.setVisibility(View.GONE);
+                                                Toast.makeText(RegistrazioneStaff.this, "Registrazione avvenuta con successo", Toast.LENGTH_SHORT).show();
+                                                startActivity(new Intent(RegistrazioneStaff.this, AccessoStaff.class));
+                                                Log.d(TAG, "FINISH successful");
                                             }
                                         })
                                         .addOnFailureListener(new OnFailureListener() {
                                             @Override
                                             public void onFailure(@NonNull Exception e) {
+                                                Log.e(TAG, "Failed to write document", e);
+                                                progressBar.setVisibility(View.GONE);
                                                 Toast.makeText(RegistrazioneStaff.this, "Registrazione fallita" + e.getMessage(), Toast.LENGTH_SHORT).show();
                                             }
                                         });
+                            } else {
+                                Log.e(TAG, "Authentication failed", task.getException());
+                                progressBar.setVisibility(View.GONE);
+                                Toast.makeText(RegistrazioneStaff.this,   task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                             }
                         }
                     });

@@ -58,7 +58,7 @@
 
             <EditText
                 android:id="@+id/Logemail"
-                android:layout_width="match_parent"
+                android:layout_width="238dp"
                 android:layout_height="55dp"
                 android:drawablePadding="8dp"
                 android:hint="Email"
@@ -85,7 +85,7 @@
 
             <EditText
                 android:id="@+id/Logpassword"
-                android:layout_width="match_parent"
+                android:layout_width="238dp"
                 android:layout_height="55dp"
                 android:drawablePadding="10dp"
                 android:hint="Password"

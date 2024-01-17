@@ -113,6 +113,10 @@ public class RegistrazioneRichiedenteAsilo extends AppCompatActivity {
                 if (userpass.isEmpty()) {
                     password.setError("Password required");
                 }
+                if (userpass.length() < 6) {
+                    password.setError( "La password deve essere di almeno 6 caratteri!");
+
+                }
                 if (useremail.isEmpty() || userpass.isEmpty() || nomeValue.isEmpty() || cognomeValue.isEmpty() ||
                         cellulareValue.isEmpty() || luogonascitaValue.isEmpty() || nascitaValue.isEmpty() || genereValue.isEmpty()) {
                     Toast.makeText(RegistrazioneRichiedenteAsilo.this, "Riempire tutti i campi!", Toast.LENGTH_SHORT).show();
@@ -126,6 +130,7 @@ public class RegistrazioneRichiedenteAsilo extends AppCompatActivity {
                     Toast.makeText(RegistrazioneRichiedenteAsilo.this, "Cellulare non valido!", Toast.LENGTH_SHORT).show();
                     return;
                 }
+
 
                 progressBar.setVisibility(View.VISIBLE);
                 mAuth.createUserWithEmailAndPassword(useremail, userpass)
@@ -168,7 +173,7 @@ public class RegistrazioneRichiedenteAsilo extends AppCompatActivity {
                                     });
                                 } else {
                                     progressBar.setVisibility(View.GONE);  // Dismiss progress bar
-                                    Toast.makeText(RegistrazioneRichiedenteAsilo.this, "Authentication failed.", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(RegistrazioneRichiedenteAsilo.this, task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                                     Log.e(TAG, "Firebase authentication failed: " + task.getException().getMessage());
                                 }
                             }
